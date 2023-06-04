@@ -123,7 +123,7 @@ const removeTab= (bt,i)=>{
             {buttons}
             {/* {console.log(buttons)} */}
             <Icon className='w-20 h-20' 
-            onClick={ ()=>count!=5?(setCount(count+1),showTab(count-1)):null } 
+            onClick={ ()=>count!=5?(setCount(count+1),showTab(count)):null } 
               icon={circle_plus}/>
         </div>
         <div className='block'>
