@@ -19,23 +19,59 @@ const Tabs = () => {
   const showTab=(i)=>{
     const btns=document.getElementsByClassName('btns');
     const tbs=document.getElementsByClassName('tbs');
-   console.log(btns,"and ",i)
+  //  console.log(btns,"and ",i)
+  //  console.log(tbs)
+
+   for(let j=0;j<tbs.length;j++){
+    tbs[j].style.display='none'
+  }
+  
+  tbs[i].style.display='flex'; 
+  
     for(let j=0;j<btns.length;j++) {
         btns[j].style.backgroundColor="gray";
     };
      btns[i].style.backgroundColor='#7e22ce';
 
-   for(let j=0;j<tbs.length;j++){
-      tbs[j].style.display='none'
-    }
-    tbs[i].style.display='flex';
+   
 
+  }
+
+  const removeTab=(i)=>{
+    const btns=document.getElementsByClassName('btns');
+    const tbs=document.getElementsByClassName('tbs');
+
+   console.log('btns in remove tab before',buttons)
+   console.log('tbs in remove tab before',tabs)
+  //  buttons.filter((item,j)=>j!=i)
+  //  tabs.filter((item,j)=>j!=i)
+  //  setButtons(buttons);
+  //  setTabs(tabs)
+    for(let j=0;j<tbs.length;j++){
+      if(j==i){
+        console.log("tab found")
+        tbs[j].style.display='none'
+        // tbs.splice(j,1)
+      }
+    }
+    for(let j=0;j<btns.length;j++){
+      if(j==i){
+        btns[j].style.display='none'
+        // btns.splice(j,1)
+      }
+    }
+    console.log('btns in remove tab after',buttons)
+    console.log('tbs in remove tab after',tabs)
+    setTimeout(()=>{
+      document.getElementsByClassName('btns')[i-1].click();
+    },500)
+    
   }
   // inititally show first tab
   
 
   
-  let bt= <div key={count} onClick={()=>showTab(count-1)} className={` btns bg-[#7e22ce] border-4 border-gray-400 w-full flex justify-between`}><button className='p-5 text-white hover:bg-gray-400 '>Tab{buttons.length+1}</button> {count>1?<Icon className='rounded-2xl hover:bg-gray-300 p-5 cursor-pointer' name={count} onClick={()=>{setFlag(true);setTarget(count)}}  icon={close}/>:null}</div>
+  let bt= <div  key={count} onClick={()=>showTab(count-1)} className={` btns bg-[#7e22ce] border-4 border-gray-400 w-full flex justify-between`}><button className='p-5 text-white hover:bg-gray-400 '>Tab{buttons.length+1}</button> {count>1?<Icon className='rounded-2xl hover:bg-gray-300 p-5 cursor-pointer' name={count} onClick={()=>{removeTab(count-1)}}  icon={close}/>:null}</div>
 
   let tb=<div key={count} id={count} className='tbs flex bg-white rounded-lg shadow-2xl p-10 w-[60vw] my-5'>
 
@@ -74,7 +110,10 @@ const Tabs = () => {
            </div>
      </div>
 
+    
+
  useEffect(()=>{
+  console.log('Count',count)
       setButtons([...buttons,bt])
       setTabs([...tabs,tb])
      
@@ -82,39 +121,32 @@ const Tabs = () => {
     //   console.log(tabs)
  },[count])
 
+
  useEffect(()=>{
-  console.log(flag)
-  if(flag){
-    removeTab(buttons,target)
-  }
-  
-},[buttons,flag])
+  const btns=document.getElementsByClassName('btns');
+  const tbs=document.getElementsByClassName('tbs')
+  console.log(btns)
+  for(let j=0;j<btns.length;j++) {
+    if(j==count-1){
+      console.log("found")
+      btns[j].style.backgroundColor="#7e22ce";
+    }else 
+        btns[j].style.backgroundColor="gray";
+};
 
-const removeTab= (bt,i)=>{
-  console.log(bt,i);
-  
-  bt.filter(it=>console.log(it.key))
-   let currBt=[];
-   let currTb=[];
-   let j=0;
-   let l=0;
-   for(let k=0;k<bt.length;k++){
-    if(bt[k].key!=i){
-      currBt[j++]=bt[k];
-      currTb[l++]=tabs[k];
-    }
-   
-   }
-   console.log("ch",currTb)
-  //  bt.filter(it=>it.key!=2)
-  //  console.log(bt)
 
-  //  tabs.filter(it=>it.key!=i)
-   setFlag(false)
-   setButtons(currBt)
-   setTabs(currTb)
-  
+for(let j=0;j<tbs.length;j++){
+  if(j==count-1)
+  tbs[j].style.display='flex'
+  else tbs[j].style.display='none';
 }
+ 
+ 
+  
+  
+},[buttons])
+
+
  
   
   return (
@@ -122,8 +154,8 @@ const removeTab= (bt,i)=>{
         <div className='flex '>
             {buttons}
             {/* {console.log(buttons)} */}
-            <Icon className='w-20 h-20' 
-            onClick={ ()=>count!=5?(setCount(count+1),showTab(count)):null } 
+            <Icon className='w-20 h-20 hover:cursor-pointer' 
+            onClick={ ()=>buttons.length!=5?(setCount(count+1)):null } 
               icon={circle_plus}/>
         </div>
         <div className='block'>
