@@ -19,34 +19,46 @@ const Tabs = () => {
   const showTab=(i)=>{
     const btns=document.getElementsByClassName('btns');
     const tbs=document.getElementsByClassName('tbs');
-  //  console.log(btns,"and ",i)
-  //  console.log(tbs)
+   console.log(btns,"and ",i)
+   console.log(tbs)
 
    for(let j=0;j<tbs.length;j++){
     tbs[j].style.display='none'
   }
-  
+  if(tbs[i])
   tbs[i].style.display='flex'; 
+  else tbs[i-1].style.display='flex'
   
     for(let j=0;j<btns.length;j++) {
         btns[j].style.backgroundColor="gray";
     };
+    if(btns[i])
      btns[i].style.backgroundColor='#7e22ce';
+    else btns[i-1].style.backgroundColor='#7e22ce';
 
    
 
   }
 
   const removeTab=(i)=>{
-    const btns=document.getElementsByClassName('btns');
-    const tbs=document.getElementsByClassName('tbs');
+    let btns=document.getElementsByClassName('btns');
+    let tbs=document.getElementsByClassName('tbs');
 
-   console.log('btns in remove tab before',buttons)
-   console.log('tbs in remove tab before',tabs)
+   
   //  buttons.filter((item,j)=>j!=i)
   //  tabs.filter((item,j)=>j!=i)
-  //  setButtons(buttons);
-  //  setTabs(tabs)
+  
+  console.log('btns in remove tab before',btns,"and ",count,"and i",i)
+  console.log('tbs in remove tab before',tbs)
+
+   
+  //  setCount(count-1)
+  console.log('btns in remove tab after',btns," and ",count)
+  console.log('tbs in remove tab after',tbs)
+  // setButtons(()=>[...btns])
+  // setButtons(()=>buttons.filter(item=>item==btns))
+  //   setButtons([btns]);
+  //  setTabs(tbs)
     for(let j=0;j<tbs.length;j++){
       if(j==i){
         console.log("tab found")
@@ -60,11 +72,10 @@ const Tabs = () => {
         // btns.splice(j,1)
       }
     }
-    console.log('btns in remove tab after',buttons)
-    console.log('tbs in remove tab after',tabs)
+   
     setTimeout(()=>{
       document.getElementsByClassName('btns')[i-1].click();
-    },500)
+    },100)
     
   }
   // inititally show first tab
